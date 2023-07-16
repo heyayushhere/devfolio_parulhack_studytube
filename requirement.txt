@@ -1,0 +1,4 @@
+Django==3.2.6
+google-api-python-client==2.15.0
+google-auth==2.3.0
+httplib2==0.20.1

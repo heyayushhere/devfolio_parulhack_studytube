@@ -1,0 +1,130 @@
+{% extends 'youtube_search/base1.html' %} {% load static %}
+
+
+{% block content %}
+
+
+<h1 style="color: white; margin: 12px 39%">YouTube Video Search</h1>
+<div class="container">
+<div class="search-form" style="display: flex;
+align-items: center;
+justify-content: center;"">
+    <form method="GET" action="{% url 'search_videos' %}">
+        <input type="text" name="q" placeholder="Search videos...">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Search">
+    </form>
+</div>
+</div>
+
+<h2 style="color: white">Search Results</h2>
+<div
+  class="search-results"
+  style="
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+  "
+>
+  {% for video in videos %}
+  <div class="container">
+    <div class="video-container">
+      <a href="{% url 'video' video_id=video.video_id %}">
+        <div class="thumbnail">
+          <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}" />
+        </div>
+        <div class="video-info">
+          <h3 style="color: white; font-weight: 500">{{ video.title }}</h3>
+          <p style="color:white">{{ video.description }}</p>
+        </div>
+      </a>
+      <button
+        class="favorite-button"
+        style="color: rgba(255, 0, 0, 0.735)"
+        data-video-id="{{ video.video_id }}"
+      >
+        Add to Playlist
+      </button>
+    </div>
+  </div>
+  {% empty %}
+  <p>No videos found.</p>
+  {% endfor %}
+</div>
+
+{% if recommendations %}
+<div class="recommended_videos">
+  <div class="container">
+  <h2 style="color: white; margin-top: 30px">Video Recommendations</h2>
+  <div
+    class="search-results"
+    style="
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+    "
+  >
+    {% for recommendation in recommendations %}
+   
+    <div class="video-container">
+      <a href="{% url 'video' video_id=recommendation.video_id %}">
+        <div class="thumbnail">
+          <img
+            src="{{ recommendation.thumbnail_url }}"
+            alt="{{ recommendation.title }}"
+          />
+        </div>
+        <div class="video-info">
+          <h3 style="color: white">{{ recommendation.title }}</h3>
+          <p style="color: white">{{ recommendation.description }}</p>
+        </div>
+      </a>
+      <button
+        class="favorite-button"
+        data-video-id="{{ recommendation.video_id }}"
+      >
+        Add to Playlist
+      </button>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% endif %}
+
+<!-- Include jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $(".favorite-button").click(function () {
+      const videoId = $(this).data("video-id");
+      const button = $(this);
+
+      // Send AJAX request to add video to playlist
+      $.ajax({
+        url: "/add-to-playlist/" + videoId + "/",
+        type: "POST",
+        data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function (response) {
+          // Update button appearance or perform other actions
+          button.text("Added to Playlist");
+          button.prop("disabled", true);
+        },
+      });
+    });
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,609 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .navbar {
+    background-color: #343a40;
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1.1rem;
+    color: #fff;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+/* this is the section of search css
+ */
+
+ .search-form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-form input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Add some styling to the search results */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff0000;
+    text-decoration: none;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-input {
+    padding: 8px;
+    width: 300px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .search-button {
+    padding: 8px 12px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+  }
+  
+  .video-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .video-item {
+    box-sizing: border-box;
+  }
+  
+  .video-thumbnail {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .video-thumbnail img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .video-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .video-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .video-description {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+    max-height: 60px;
+    overflow: hidden;
+  }
+  
+  .video-channel {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .video-link {
+    color: #ff0000;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  /* Add hover effect to video items */
+  .video-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  /* Add styling to active video item */
+  .video-item.active {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Add styling to selected video item */
+  .video-item.selected {
+    background-color: #ff0000;
+    color: #fff;
+  }
+  
+  /* Add styling to video player */
+  .video-player {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    position: relative;
+  }
+  
+  .video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+    
+  
+.video-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 112px;
+}
+
+.video-results {
+    width: 70%;
+}
+.search-results {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.video-container {
+    width: 300px;
+    margin: 10px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    position: relative;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.video-info {
+    margin-top: 25px;
+}
+
+.video-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.video-info p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.open-video-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.open-video-button:hover {
+    background-color: #0056b3;
+}
+
+
+.search-results {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.search-results li {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.search-results li h3 {
+    margin: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.search-results li .video-player {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+
+.search-results li .video-player img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-results li p {
+    margin: 10px;
+    color: #777;
+}
+
+.search-results li .favorite-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-results li .favorite-button:hover {
+    background-color: #0056b3;
+}
+
+
+
+.recommended_videos h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #333;
+}
+
+.recommended_videos .search-results {
+    list-style: none;
+    padding: 0;
+}
+
+.recommended_videos .search-results li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.recommended_videos .search-results li h3 {
+    font-size: 16px;
+    color: #333;
+}
+
+.recommended_videos .search-results li .video-player {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+
+.recommended_videos .search-results li .video-player img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recommended_videos .search-results li p {
+    margin-top: 5px;
+    color: #777;
+}
+
+.recommended_videos .search-results li .favorite-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.recommended_videos .search-results li .favorite-button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+/* video.html  */
+.video-container {
+    width: 80%;
+    height: 0;
+    padding-bottom: 56.25%;
+    position: relative;
+    margin: 20px auto;
+}
+
+.video-player {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+  margin-top: 20px;
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.recommended-videos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recommended-videos li {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.recommended-videos .thumbnail {
+  width: 180px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+.recommended-videos .thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recommended-videos .video-info {
+  flex-grow: 1;
+}
+
+.recommended-videos .video-info h5 {
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+}
+
+.recommended-videos .open-video-button {
+  padding: 5px 10px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.recommended-videos .open-video-button:hover {
+  background-color: #cc0000;
+}
+
+/* Add hover effect to video items */
+.recommended-videos li:hover {
+  background-color: #f9f9f9;
+}
+
+/* video players */
+
+
+/* CSS styles for video page */
+.video-container {
+    width: 101%;
+    height: 0;
+    padding-bottom: 56.25%;
+    position: relative;
+    margin-bottom: 112px;
+  }
+  
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .video-details {
+    margin-top: 20px;
+  }
+  
+  .video-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .video-details .video-description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+    max-height: 100px;
+    overflow: hidden;
+  }
+  
+  .video-details .favorite-button {
+    padding: 10px 20px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .sidebar {
+    margin-top: 20px;
+  }
+  
+  .sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .recommended-videos li {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .recommended-videos .thumbnail {
+    width: 1160px; /* Adjust the width as needed */
+    height: 100px; 
+    margin-right: 10px;
+  }
+  
+  .recommended-videos .thumbnail img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .recommended-videos .video-info {
+    flex-grow: 1;
+  }
+  
+  .recommended-videos .video-info h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .recommended-videos .video-info .video-description {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 5px;
+    max-height: 60px;
+    overflow: hidden;
+  }
+  
+  .recommended-videos .open-video-button {
+    padding: 5px 10px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* sidebar */
+  .side-container {
+    margin-top: -39px;
+    
+    margin-left: -180px;
+  
+  }
+  
+  .left_sidebar {
+      width: 150px;
+      background-color: #f8f8f8;
+      padding: 20px;
+  }
+  
+  .left_sidebar h2 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+  }
+  
+  .left_sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+  }
+  
+  .left_sidebar li {
+      margin-bottom: 40px;
+  }
+  
+  .left_sidebar a {
+      text-decoration: none;
+      color: #333;
+  }
+  
+  .left_sidebar a:hover {
+      color: #ff0000;
+  }
+  
+  .content {
+      flex: 1;
+      padding: 20px;
+  }
+  

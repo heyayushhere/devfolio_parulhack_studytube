@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Video</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#id_category').change(function() {
+                var categoryId = $(this).val();
+                $.ajax({
+                    url: '/get_subcategories/',
+                    data: {
+                        'category_id': categoryId
+                    },
+                    success: function(response) {
+                        $('#id_sub_category').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Create Video</h1>
+    <form method="POST" action="{% url 'create_video' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

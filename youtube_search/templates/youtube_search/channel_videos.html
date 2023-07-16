@@ -1,0 +1,156 @@
+{% extends 'youtube_search/base1.html' %} {% load static %}
+{% block css %}
+h2 {
+    color: #e50914;
+    text-align: center;
+}
+
+ul.video-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+li.video-item {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    width: 300px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+li.video-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.video-details {
+    margin-top: 10px;
+}
+
+.video-details h3 {
+    font-size: 16px;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-details p {
+    color: #ccc;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.video-player-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.video-player {
+    width: 80%;
+    height: 80%;
+}
+
+.video-player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+{% endblock %}
+        
+  
+{% block content %}
+    <h2>Videos for Channel ID: {{ channel_id }}</h2>
+<div class="container">
+    <div class="video-player-container" id="videoPlayerContainer" style="display: none;">
+        <div class="video-player">
+            <iframe id="youtubePlayer" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <ul class="video-list">
+        {% for video in videos %}
+            <li class="video-item" >
+                <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}" class="video-thumbnail">
+                <div class="video-details">
+                    <h3>{{ video.title }}</h3>
+                    <p>{{ video.description }}</p>
+                </div>
+                <button class="favorite-button" data-video-id="{{ video.video_id }}">Add to Playlist</button>
+                <button class="open-button" onclick="openVideo('{{ video.video_id }}')">Open Video</button>
+            </li>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function playVideo(videoId) {
+            const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+            const youtubePlayer = document.getElementById('youtubePlayer');
+
+            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}`;
+            videoPlayerContainer.style.display = 'flex';
+        }
+
+        function closeVideo() {
+            const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+            const youtubePlayer = document.getElementById('youtubePlayer');
+
+            youtubePlayer.src = '';
+            videoPlayerContainer.style.display = 'none';
+        }
+        function openVideo(videoId) {
+            const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+            window.open(videoUrl, '_blank');
+        }
+        $('.favorite-button').click(function () {
+            const videoId = $(this).data('video-id');
+            const button = $(this);
+
+            // Send AJAX request to add video to playlist
+            $.ajax({
+                url: '/add-to-playlist/' + videoId + '/',
+                type: 'POST',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (response) {
+                    // Update button appearance or perform other actions
+                    button.text('Added to Playlist');
+                    button.prop('disabled', true);
+                }
+            });
+        });
+  
+
+    </script>
+
+{% endblock %}

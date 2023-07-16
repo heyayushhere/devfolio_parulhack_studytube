@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Favorite Videos</h2>
+  <div class="video-container">
+    {% for video in videos %}
+      <div class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+        <h3>{{ video.title }}</h3>
+        <p>{{ video.description }}</p>
+      </div>
+    {% empty %}
+      <p>No favorite videos found.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

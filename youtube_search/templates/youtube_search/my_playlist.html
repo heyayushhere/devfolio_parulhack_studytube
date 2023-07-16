@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Playlist</title>
+</head>
+<body>
+    <h2>My Playlist</h2>
+    <ul>
+        {% for video in playlist.videos.all %}
+        <li>
+            <h3>{{ video.title }}</h3>
+            <p>{{ video.description }}</p>
+            <div class="video-player">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </li>
+        {% empty %}
+        <li>No videos in the playlist.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+ 

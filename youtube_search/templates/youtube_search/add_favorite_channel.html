@@ -1,0 +1,10 @@
+{% extends 'youtube_search/base.html' %}
+
+{% block content %}
+  <h2>Add Favorite Channel</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add</button>
+  </form>
+{% endblock %}

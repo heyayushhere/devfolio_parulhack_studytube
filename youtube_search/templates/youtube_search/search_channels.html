@@ -1,0 +1,118 @@
+<!-- search_channels.html -->
+{% extends 'youtube_search/base1.html' %} {% load static %}
+{% block css %}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+        
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .channel-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .channel-item {
+            width: 300px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .channel-item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .channel-thumbnail {
+            width: 100%;
+            height: auto;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .channel-details {
+            padding: 10px;
+        }
+        
+        .channel-details h3 {
+            font-size: 16px;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        
+        .channel-details p {
+            font-size: 14px;
+            color: #777;
+            margin: 0;
+        }
+    {% endblock %}
+
+     {% block content %}
+
+    <h2 style="color:white ;font-weight: 500; ">Search Channels</h2>
+    <div class="container">
+    <form method="GET" action="{% url 'search_channels' %}">
+        <input type="text" name="query" placeholder="Search channels...">
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+    {% if channels %}
+        <h2 style="color:white ;font-weight: 500; ">Search Results for "{{ query }}"</h2>
+        <div class="container">
+        <ul class="channel-list">
+            {% for channel in channels %}
+                <li class="channel-item">
+                    <a href="{% url 'channel_videos' channel_id=channel.channel_id %}">
+                        <img src="{{ channel.thumbnail_url }}" alt="{{ channel.title }}" class="channel-thumbnail">
+                        <div class="channel-details">
+                            <h3>{{ channel.title }}</h3>
+                            <p>{{ channel.description }}</p>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+        <p>No channels found for "{{ query }}".</p>
+    {% endif %}
+
+    {% endblock %}

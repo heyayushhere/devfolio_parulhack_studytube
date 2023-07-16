@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Styling for the progress bar */
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            background-color: #007bff;
+            transition: width 0.3s ease;
+        }
+
+        /* Additional styling for the video container */
+        .video-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Watch Video</h1>
+    <h2>{{ video.title }}</h2>
+    <div class="video-container">
+        <div class="video-player">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <p>User Progress:</p>
+    <div class="progress-bar">
+        <div class="progress-bar-inner" style="width: {{ progress_percentage }};"></div>
+    </div>
+    {% if user_progress.completed_at %}
+        <p>You completed this video on: {{ user_progress.completed_at }}</p>
+    {% else %}
+        <p>You started watching this video on: {{ user_progress.started_at }}</p>
+        <form method="POST" action="{% url 'watch_video' video.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="play_time" id="play-time-input">
+            <input type="hidden" name="completion_time" id="completion-time-input">
+            <button type="button" id="complete-button" data-video-id="{{ video.id }}" disabled>Mark as Completed</button>
+        </form>
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var videoPlayer = $('.video-player iframe');
+            var playTimeInput = $('#play-time-input');
+            var completionTimeInput = $('#completion-time-input');
+            var completeButton = $('#complete-button');
+
+            videoPlayer.on('timeupdate', function () {
+                var currentTime = videoPlayer[0].currentTime;
+                playTimeInput.val(currentTime);
+            });
+
+            videoPlayer.on('ended', function () {
+                var currentTime = videoPlayer[0].currentTime;
+                playTimeInput.val(currentTime);
+                completeButton.prop('disabled', false);
+            });
+
+            completeButton.on('click', function () {
+                var videoId = $(this).data('video-id');
+                var playTime = playTimeInput.val();
+                var completionTime = new Date().toISOString();
+                
+                $.ajax({
+                    url: '/mark_video_completed/',
+                    type: 'POST',
+                    data: {
+                        video_id: videoId,
+                        play_time: playTime,
+                        completion_time: completionTime,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        // Handle the success response
+                        console.log('Video marked as completed');
+                        completeButton.prop('disabled', true);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle the error response
+                        console.error('Error marking video as completed');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

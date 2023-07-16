@@ -1,0 +1,113 @@
+{% extends 'youtube_search/base1.html' %} {% load static %}
+{% block css %}
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.countdown-container {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: white;
+}
+
+{% endblock %}
+<script>
+    // Function to calculate the remaining time and update the countdown
+    function updateCountdown(endTime) {
+        var countdownContainer = document.getElementById('countdown-container');
+
+        var countdownInterval = setInterval(function () {
+            var currentTime = new Date().getTime();
+            var timeRemaining = endTime - currentTime;
+
+            // Check if the countdown has ended
+            if (timeRemaining <= 0) {
+                clearInterval(countdownInterval);
+                countdownContainer.textContent = 'Task Due!';
+            } else {
+                // Calculate the remaining days, hours, minutes, and seconds
+                var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                // Display the remaining time in the countdown container
+                countdownContainer.textContent = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
+            }
+        }, 1000);
+    }
+
+    // Get the task due date from the Django template variable
+    var taskDueDate = '{{ form.instance.due_date }}';
+
+    // Convert the task due date to a JavaScript Date object
+    var endTime = new Date(taskDueDate).getTime();
+
+    // Call the updateCountdown function to start the countdown
+    updateCountdown(endTime);
+</script>
+
+
+{% block content %}
+  
+
+
+    <h1 style="color: white;">Create Task</h1>
+    <div class="container">
+
+    <div class="countdown-container" id="countdown-container"></div>
+
+    <form method="POST" action="{% url 'create_task' %}">
+        {% csrf_token %}
+        <label for="id_title">Title:</label>
+        {{ form.title }}
+        <label for="id_description">Description:</label>
+        {{ form.description }}
+        <label for="id_due_date">Due Date:</label>
+        {{ form.due_date }}
+        <button type="submit">Create Task</button>
+    </form>
+</div>
+   
+{% endblock %}

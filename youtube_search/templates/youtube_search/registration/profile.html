@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<style>
+    
+    /* styles.css */
+
+/* Profile page styles */
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile__title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.profile__username {
+    color: #007bff;
+}
+
+.profile__logout-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.profile__logout-link:hover {
+    background-color: #0056b3;
+}
+
+</style>
+{% include 'youtube_search/search.html' %}
+<body>
+    <div class="profile">
+        <h2 class="profile__title">Welcome, <span id="username" class="profile__username"></span>!</h2>
+        <p id="greeting" class="profile__greeting"></p>
+        <a href="{% url 'logout' %}" class="profile__logout-link">Logout</a>
+    </div>
+
+   
+<script>
+    const usernameElement = document.getElementById('username');
+const greetingElement = document.getElementById('greeting');
+const username = '{{ request.user.username }}';
+const greetings = [
+  'How was your day?',
+  'Welcome to our platform!',
+  'Enjoy your stay!',
+];
+const delay = 100;
+const repeatCount = 2;
+
+function typeWriter(element, text, delay) {
+  let charIndex = 0;
+  const typingInterval = setInterval(() => {
+    if (charIndex < text.length) {
+      element.innerHTML += text.charAt(charIndex);
+      charIndex++;
+    } else {
+      clearInterval(typingInterval);
+    }
+  }, delay);
+}
+
+function repeatTyping(element, lines, delay, repeatCount) {
+  let repeatIndex = 0;
+  const repeatInterval = setInterval(() => {
+    if (repeatIndex < repeatCount) {
+      lines.forEach((line) => {
+        setTimeout(() => {
+          element.innerHTML = '';
+          typeWriter(element, line, delay);
+        }, repeatIndex * lines.length * delay * line.length);
+      });
+      repeatIndex++;
+    } else {
+      clearInterval(repeatInterval);
+    }
+  }, repeatCount * lines.length * delay * line.length);
+}
+
+typeWriter(usernameElement, username, delay);
+setTimeout(() => {
+  repeatTyping(greetingElement, greetings, delay, repeatCount);
+}, 1500);
+
+</script>
+</body>
+</html>

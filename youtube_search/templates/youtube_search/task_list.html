@@ -1,0 +1,167 @@
+{% extends 'youtube_search/base1.html' %} {% load static %}
+{% block css %}
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.task-list li {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  transition: box-shadow 0.3s ease;
+}
+
+.task-list li:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.task-title {
+  font-weight: bold;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.task-description {
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.task-due-date {
+  color: #555;
+}
+
+.countdown-container {
+  text-align: center;
+}
+
+.countdown-timer {
+  font-size: 32px;
+  color: #ff0000;
+  margin-bottom: 5px;
+}
+
+.countdown-label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 0;
+}
+
+/* Add some hover effect to task items */
+.task-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Add some transitions for smoother animations */
+.task-list li {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Add some spacing between task items */
+.task-list li:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+/* Add some border radius to countdown container */
+.countdown-container {
+  border-radius: 50%;
+  background-color: #fff;
+  padding: 30px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.countdown-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Add some spacing to countdown timer and label */
+.countdown-timer {
+  margin-bottom: 10px;
+}
+
+.countdown-label {
+  margin-bottom: 0;
+}
+
+
+
+
+{% endblock %}
+
+   
+
+{% block content %}
+<h1 style="color:white">Task List</h1>
+<div class="container">
+<ul class="task-list">
+    {% for task in tasks %}
+    <li>
+       <a href="/focus"> <h3 class="task-title">{{ task.title }}</h3></a>
+        <p class="task-description">{{ task.description }}</p>
+        <p class="task-due-date">Due Date: {{ task.due_date }}</p>
+        <div class="countdown-container">
+            <p class="countdown-timer" data-end-time="{{ task.due_date }}"></p>
+            <p class="countdown-label">Time Remaining</p>
+        </div>
+    </li>
+    {% empty %}
+    <li>No tasks found.</li>
+    {% endfor %}
+</ul>
+</div>
+
+<script>
+    // Function to calculate the remaining time and update the countdown
+    function updateCountdown(endTime, countdownElement) {
+        var countdownInterval = setInterval(function () {
+            var currentTime = new Date().getTime();
+            var timeRemaining = endTime - currentTime;
+
+            // Check if the countdown has ended
+            if (timeRemaining <= 0) {
+                clearInterval(countdownInterval);
+                countdownElement.textContent = 'Task Completed!';
+            } else {
+                // Calculate the remaining days, hours, minutes, and seconds
+                var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                // Format the remaining time
+                var remainingTime = days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
+
+                // Display the remaining time in the countdown element
+                countdownElement.textContent = remainingTime;
+            }
+        }, 1000);
+    }
+
+    // Get the countdown elements
+    var countdownElements = document.getElementsByClassName('countdown-timer');
+
+    // Start the countdown for each task
+    for (var i = 0; i < countdownElements.length; i++) {
+        var endTime = new Date(countdownElements[i].getAttribute('data-end-time'));
+        updateCountdown(endTime, countdownElements[i]);
+    }
+</script>
+
+{% endblock %}
+
+
+
+
