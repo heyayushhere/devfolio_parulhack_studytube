@@ -23,6 +23,9 @@ def register(request):
 def profile(request):
     return render(request, 'youtube_search/registration/profile.html')
 
+def aboutus(request):
+    return render(request, 'youtube_search/aboutus.html')
+
 def logout_view(request):
     logout(request)
     return redirect('login')
@@ -62,7 +65,7 @@ def search_videos(request):
         search_params = {
             'q': query,
             'part': 'snippet',
-            'maxResults': 15,
+            'maxResults': 20,
             'type': 'video',
         }
         
@@ -368,6 +371,8 @@ from googleapiclient.errors import HttpError
 from django.conf import settings
 from django.shortcuts import render
 
+
+@login_required
 def search_channels(request):
     query = request.GET.get('query')
     channels = []
@@ -400,7 +405,7 @@ def search_channels(request):
             # Handle the error as per your requirements
 
     return render(request, 'youtube_search/search_channels.html', {'channels': channels, 'query': query})
-
+@login_required
 def channel_videos(request, channel_id):
     videos = []
     try:

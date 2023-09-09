@@ -1,14 +1,101 @@
 {% extends 'youtube_search/base1.html' %} {% load static %}
+{%block css%}
+/* Base styles for all devices */
+
+
+
+h1{
+  color: white; 
+  margin: 12px 39%;
+}
+
+.search-results{
+  list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.video-details {
+  margin-top: 10px;
+}
+
+.video-details h3 {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video-details p {
+  color: #ccc;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+  
+ 
+
+@media screen and (max-width: 768px) {
+  h1 {
+    text-align: center;
+    margin: 12px auto; /* Center the heading on mobile */
+  }
+
+  .search-form {
+    flex-direction: column; /* Stack form elements in a column */
+  }
+
+  .search-form form {
+    display: flex;
+    flex-direction: column; /* Stack form inputs in a column */
+    align-items: center;
+  }
+
+  .search-results {
+    grid-template-columns: repeat(1, 1fr); /* Display videos in a single column */
+  }
+
+  .video-container {
+    text-align: center; /* Center video elements horizontally */
+  }
+
+  .thumbnail img {
+    width: 100%; /* Make the thumbnail image fill the container width */
+  }
+
+  .video-info {
+    padding: 7px;
+    margin-top:5px;
+  }
+
+  .favorite-button {
+    margin-top: -20px;
+    margin-left: 125px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .recommended_videos {
+    grid-template-columns: repeat(1, 1fr); /* Display videos in a single column on even smaller screens */
+  }
+}
+
+{% endblock %}
 
 
 {% block content %}
 
 
-<h1 style="color: white; margin: 12px 39%">YouTube Video Search</h1>
+<h1>YouTube Video Search</h1>
 <div class="container">
 <div class="search-form" style="display: flex;
 align-items: center;
-justify-content: center;"">
+justify-content: center;">
     <form method="GET" action="{% url 'search_videos' %}">
         <input type="text" name="q" placeholder="Search videos...">
         <select name="category">
@@ -24,15 +111,7 @@ justify-content: center;"">
 
 <h2 style="color: white">Search Results</h2>
 <div
-  class="search-results"
-  style="
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-  "
->
+  class="search-results">
   {% for video in videos %}
   <div class="container">
     <div class="video-container">
@@ -60,7 +139,7 @@ justify-content: center;"">
 </div>
 
 {% if recommendations %}
-<div class="recommended_videos">
+<div class="recommended_videos" style="display: grid;">
   <div class="container">
   <h2 style="color: white; margin-top: 30px">Video Recommendations</h2>
   <div
