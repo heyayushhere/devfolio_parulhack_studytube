@@ -1,9 +1,19 @@
-\{% extends 'youtube_search/base.html' %}
+\{% extends 'youtube_search/base1.html' %}
 {% load static %}
+{%block css%}
+h1,h2{
+    color:white;
+    
+}
+p{
+    color:white;
 
-{% block title %}Video{% endblock %}
+}
+{%endblock%}
+
 
 {% block content %}
+<div class="container">
     <div class="video-container">
         <div class="video-player">
             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ video.video_id }}" frameborder="0" allowfullscreen></iframe>
@@ -16,7 +26,8 @@
         <p class="video-description">{{ video.description }}</p>
         <button class="favorite-button" data-video-id="{{ video.video_id }}">Add to Playlist</button>
     </div>
-
+</div>
+<div class="container">
     <div class="sidebar">
         <h2>Recommended Videos</h2>
         <ul class="recommended-videos">
@@ -35,6 +46,7 @@
             {% endfor %}
         </ul>
     </div>
+</div>
 
     <!-- Include jQuery library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

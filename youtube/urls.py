@@ -6,12 +6,13 @@ from django.conf import settings
 from django.urls import path
 from youtube_search.views import add_to_playlist,my_playlist,task_list, create_task, update_task,login_view,add_video,watch_video,search_videos,ip,add_favorite_channel,favorite_videos
 
-from youtube_search.views import watch_video,video,add_favorite_channel,search_channels,channel_videos,index,focus
+from youtube_search.views import watch_video,video,add_favorite_channel,search_channels,channel_videos,index,focus,aboutus
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('side/', views.ip,name='side'),
     path('', views.index,name='index'),
+    path('aboutus/', views.aboutus,name='aboutus'),
     path('focus/', views.focus,name='focus'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('login/accounts/register/', views.register, name='register'),

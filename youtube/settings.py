@@ -71,7 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'youtube.wsgi.application'
 
-YOUTUBE_API_KEY = 'your_ytapi_key'
+YOUTUBE_API_KEY = 'AIzaSyBFDlTHR6sohxgOJt9rZZbb27uPdU6hMSU'
 
 
 
